@@ -18,7 +18,9 @@ docker-compose exec app python manage.py test
 ## App Endpoints
 
 **Get match by ID**: ```http://127.0.0.1:5003/get-match/<id>```
+
 **Get matches by date**: ```http://127.0.0.1:5003/get-match/<mm-dd-yyyy>```
+  
 **Get all available matches**: ```http://127.0.0.1:5003/all-matches```
 
 ## Database Endpoints
