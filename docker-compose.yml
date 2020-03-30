@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+
+  app:
+    build:
+      context: ./services/app
+      dockerfile: Dockerfile
+    volumes:
+      - './services/app:/usr/src/app'
+    ports:
+      - 5003:5000
+    environment:
+      - FLASK_ENV=development
+      - JWT_SECRET_KEY=t1NP63m4wnBg6nyHYKfmc2TpCOGI4nss
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/db_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@db:5432/db_test
+    depends_on:
+      - db
+
+  database:
+    build:
+      context: ./services/database
+      dockerfile: Dockerfile
+    volumes:
+      - './services/database:/usr/src/app'
+    ports:
+      - 5002:5000
+    environment:
+      - FLASK_ENV=development
+      - JWT_SECRET_KEY=t1NP63m4wnBg6nyHYKfmc2TpCOGI4nss
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/db_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@db:5432/db_test
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./services/db
+      dockerfile: Dockerfile
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
