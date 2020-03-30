@@ -24,4 +24,8 @@ class TestingConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     """Production configuration"""
-    pass
+    DATABASE_URI = os.environ.get('DATABASE_URL')
+    PONY = {
+      'provider': 'postgres',
+      'dsn': DATABASE_URI,
+    }

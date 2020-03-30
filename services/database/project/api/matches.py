@@ -96,9 +96,14 @@ class MatchApi(Resource):
 class MatchesApi(Resource):
   @db_session
   def get(self):
-    '''All Matches'''
+    """Get all available matches"""
     matches = Match.select()[:]
-    return {'data': [match.to_dict() for match in matches]}, 200
+
+    if not matches:
+      return 'No matches available!', 200
+
+    result = { "data": [match.to_dict() for match in matches] }
+    return result, 200
 
 api.add_resource(MatchApi, '/add-match', '/update-match/<int:id>', '/get-match/<int:id>')
 api.add_resource(MatchesApi, '/all-matches')

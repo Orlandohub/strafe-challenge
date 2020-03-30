@@ -3,7 +3,6 @@ import unittest
 
 from flask.cli import FlaskGroup
 from pony.flask import Pony
-
 from project import create_app
 
 app = create_app()
